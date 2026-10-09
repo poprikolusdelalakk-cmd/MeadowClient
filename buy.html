@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Premium | Meadow Client</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #06090e; color: #f3f4f6; min-height: 100vh; display: flex; flex-direction: column; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(6, 9, 14, 0.8); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .logo { font-size: 24px; font-weight: 900; color: #10b981; text-transform: uppercase; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #9ca3af; font-weight: 600; padding: 8px 16px; border-radius: 20px; }
+        .nav-links a:hover, .nav-links a.active { color: #ffffff; background: rgba(16, 185, 129, 0.15); }
+        
+        .box { max-width: 550px; background: #0d1117; border: 1px solid #10b981; box-shadow: 0 0 30px rgba(16, 185, 129, 0.1); margin: 80px auto; padding: 40px; border-radius: 20px; text-align: center; }
+        h1 { font-size: 32px; margin-bottom: 5px; }
+        .price { font-size: 42px; font-weight: 900; color: #10b981; margin: 20px 0; }
+        p { color: #9ca3af; margin-bottom: 30px; }
+        ul { text-align: left; max-width: 350px; margin: 0 auto 30px auto; color: #d1d5db; list-style: none; }
+        ul li { margin-bottom: 12px; }
+        ul li::before { content: "✦ "; color: #10b981; font-weight: bold; }
+        
+        .btn-buy { display: block; background: linear-gradient(135deg, #10b981, #059669); color: white; text-decoration: none; padding: 16px; border-radius: 12px; font-weight: 700; text-transform: uppercase; transition: 0.25s; }
+        .btn-buy:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        footer { margin-top: auto; text-align: center; padding: 30px; color: #4b5563; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Meadow</div>
+        <nav class="nav-links">
+            <a href="index.html">Главная</a>
+            <a href="free.html">Free Версия</a>
+            <a href="buy.html" class="active">Buy Premium</a>
+        </nav>
+    </header>
+    <main>
+        <div class="box">
+            <h1>Premium Access</h1>
+            <div class="price">299 ₽ / навсегда</div>
+            <p>Получите максимальное скрытое преимущество на любых проверках и серверах.</p>
+            <ul>
+                <li>Perfect Silent Aim (Идеально беспалевный)</li>
+                <li>Автоматический Self-Destruct (Экстренное удаление)</li>
+                <li>Кастомные скрытые Bypass конфиги</li>
+                <li>Приоритетный Discord саппорт 24/7</li>
+            </ul>
+            <!-- СЮДА ВСТАВЬ ССЫЛКУ НА ОПЛАТУ ИЛИ ДИСКОРД ВМЕСТО # -->
+            <a href="#" target="_blank" class="btn-buy">Купить доступ</a>
+        </div>
+    </main>
+    <footer>© 2026 Meadow Client. Все права защищены.</footer>
+</body>
+</html>
