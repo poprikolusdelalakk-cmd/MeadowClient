@@ -6,27 +6,106 @@
     <title>Buy Premium | Meadow Client</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #06090e; color: #f3f4f6; min-height: 100vh; display: flex; flex-direction: column; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(6, 9, 14, 0.8); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .logo { font-size: 24px; font-weight: 900; color: #10b981; text-transform: uppercase; letter-spacing: 2px; }
+        body { background: #05050a; color: #f3f4f6; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
+        /* Фиолетовая неоновая подсветка */
+        .bg-glow {
+            position: fixed; top: -10%; left: -10%; width: 60vw; height: 60vw;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.12) 0%, transparent 70%);
+            filter: blur(80px); z-index: -1;
+        }
+
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 8%; background: rgba(5, 5, 10, 0.8);
+            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .logo { font-size: 24px; font-weight: 900; letter-spacing: 2px; color: #a855f7; text-transform: uppercase; text-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
+        
         .nav-links { display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: #9ca3af; font-weight: 600; padding: 8px 16px; border-radius: 20px; }
-        .nav-links a:hover, .nav-links a.active { color: #ffffff; background: rgba(16, 185, 129, 0.15); }
+        .nav-links a { text-decoration: none; color: #9ca3af; font-weight: 600; padding: 8px 16px; border-radius: 20px; transition: 0.25s; }
+        .nav-links a:hover, .nav-links a.active { color: #ffffff; background: rgba(168, 85, 247, 0.2); }
+
+        .title-section { text-align: center; margin-top: 50px; padding: 0 20px; }
+        .title-section h1 { font-size: 38px; font-weight: 900; margin-bottom: 10px; }
+        .title-section p { color: #9ca3af; font-size: 16px; }
+
+        /* Сетка тарифов */
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
         
-        .box { max-width: 550px; background: #0d1117; border: 1px solid #10b981; box-shadow: 0 0 30px rgba(16, 185, 129, 0.1); margin: 80px auto; padding: 40px; border-radius: 20px; text-align: center; }
-        h1 { font-size: 32px; margin-bottom: 5px; }
-        .price { font-size: 42px; font-weight: 900; color: #10b981; margin: 20px 0; }
-        p { color: #9ca3af; margin-bottom: 30px; }
-        ul { text-align: left; max-width: 350px; margin: 0 auto 30px auto; color: #d1d5db; list-style: none; }
-        ul li { margin-bottom: 12px; }
-        ul li::before { content: "✦ "; color: #10b981; font-weight: bold; }
-        
-        .btn-buy { display: block; background: linear-gradient(135deg, #10b981, #059669); color: white; text-decoration: none; padding: 16px; border-radius: 12px; font-weight: 700; text-transform: uppercase; transition: 0.25s; }
-        .btn-buy:hover { transform: translateY(-2px); filter: brightness(1.1); }
-        footer { margin-top: auto; text-align: center; padding: 30px; color: #4b5563; font-size: 13px; }
+        /* Карточка тарифа */
+        .price-card {
+            background: rgba(15, 15, 25, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+        }
+        .price-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        /* Выделенная карточка НАВСЕГДА */
+        .price-card.featured {
+            border: 1px solid rgba(168, 85, 247, 0.6);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
+            background: rgba(20, 15, 35, 0.8);
+        }
+        .hot-badge {
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: linear-gradient(90deg, #a855f7, #7c3aed); color: white;
+            padding: 4px 14px; border-radius: 20px; font-size: 11px; font-weight: 800; letter-spacing: 0.5px;
+        }
+
+        .tier-title { font-size: 18px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; }
+        .featured .tier-title { color: #c084fc; }
+        .beta-title { color: #34d399 !important; } /* Особый цвет для беты */
+
+        .cost { font-size: 40px; font-weight: 900; color: #ffffff; margin: 20px 0; }
+        .cost span { font-size: 18px; color: #a855f7; font-weight: 700; }
+
+        .features-list { text-align: left; list-style: none; margin-bottom: 30px; color: #d1d5db; font-size: 14px; }
+        .features-list li { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .features-list li::before { content: "✦"; color: #a855f7; font-weight: bold; }
+
+        .btn-buy {
+            display: block; width: 100%; text-align: center; 
+            background: rgba(255, 255, 255, 0.03); color: white; 
+            border: 1px solid rgba(255, 255, 255, 0.08); padding: 14px; 
+            border-radius: 12px; font-weight: 700; text-transform: uppercase; 
+            text-decoration: none; transition: 0.25s; font-size: 14px;
+        }
+        .btn-buy:hover {
+            border-color: #a855f7; color: #c084fc; background: rgba(168, 85, 247, 0.05); box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
+        }
+        .featured .btn-buy {
+            background: linear-gradient(135deg, #a855f7, #7c3aed); border: none;
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
+        }
+        .featured .btn-buy:hover {
+            filter: brightness(1.1); color: white; box-shadow: 0 8px 20px rgba(124, 58, 237, 0.5);
+        }
+
+        footer { margin-top: auto; text-align: center; padding: 30px; color: #4b5563; font-size: 13px; border-top: 1px solid rgba(255, 255, 255, 0.02); }
     </style>
 </head>
 <body>
+    <div class="bg-glow"></div>
     <header>
         <div class="logo">Meadow</div>
         <nav class="nav-links">
@@ -35,21 +114,77 @@
             <a href="buy.html" class="active">Buy Premium</a>
         </nav>
     </header>
+    
     <main>
-        <div class="box">
-            <h1>Premium Access</h1>
-            <div class="price">299 ₽ / навсегда</div>
-            <p>Получите максимальное скрытое преимущество на любых проверках и серверах.</p>
-            <ul>
-                <li>Perfect Silent Aim (Идеально беспалевный)</li>
-                <li>Автоматический Self-Destruct (Экстренное удаление)</li>
-                <li>Кастомные скрытые Bypass конфиги</li>
-                <li>Приоритетный Discord саппорт 24/7</li>
-            </ul>
-            <!-- СЮДА ВСТАВЬ ССЫЛКУ НА ОПЛАТУ ИЛИ ДИСКОРД ВМЕСТО # -->
-            <a href="#" target="_blank" class="btn-buy">Купить доступ</a>
+        <div class="title-section">
+            <h1>Выбор подписки Meadow Premium</h1>
+            <p>Автоматическая выдача лицензионного ключа сразу после успешной оплаты заказа</p>
+        </div>
+
+        <div class="price-grid">
+            <!-- 1 МЕСЯЦ -->
+            <div class="price-card">
+                <div>
+                    <div class="tier-title">1 Месяц</div>
+                    <div class="cost">120 <span>₽</span></div>
+                    <ul class="features-list">
+                        <li>Полный Legit-функционал</li>
+                        <li>Bypass проверок (Self-Destruct)</li>
+                        <li>Все готовые обходы и CFG</li>
+                    </ul>
+                </div>
+                <!-- ВСТАВЬ ССЫЛКУ НА ОПЛАТУ ТАРИФА 1 МЕСЯЦ В href="" -->
+                <a href="#" target="_blank" class="btn-buy">Купить ключ</a>
+            </div>
+
+            <!-- 1 ГОД -->
+            <div class="price-card">
+                <div>
+                    <div class="tier-title">1 Год</div>
+                    <div class="cost">199 <span>₽</span></div>
+                    <ul class="features-list">
+                        <li>Доступ на 365 дней софта</li>
+                        <li>Все функции Legit & Visuals</li>
+                        <li>Выгоднее, чем брать помесячно</li>
+                    </ul>
+                </div>
+                <!-- ВСТАВЬ ССЫЛКУ НА ОПЛАТУ ТАРИФА 1 ГОД В href="" -->
+                <a href="#" target="_blank" class="btn-buy">Купить ключ</a>
+            </div>
+
+            <!-- НАВСЕГДА (ВЫДЕЛЕННЫЙ ТАРИФ) -->
+            <div class="price-card featured">
+                <div class="hot-badge">ТОП ВЫБОР</div>
+                <div>
+                    <div class="tier-title">Навсегда</div>
+                    <div class="cost">259 <span>₽</span></div>
+                    <ul class="features-list">
+                        <li>Пожизненный доступ к читу</li>
+                        <li>Приоритетные обновления</li>
+                        <li>Закрытый Discord чат покупателей</li>
+                    </ul>
+                </div>
+                <!-- ВСТАВЬ ССЫЛКУ НА ОПЛАТУ ТАРИФА НАВСЕГДА В href="" -->
+                <a href="#" target="_blank" class="btn-buy">Купить навсегда</a>
+            </div>
+
+            <!-- БЕТА -->
+            <div class="price-card">
+                <div>
+                    <div class="tier-title beta-title">Beta Access</div>
+                    <div class="cost">489 <span>₽</span></div>
+                    <ul class="features-list">
+                        <li>Доступ к самым новым тестам</li>
+                        <li>Ранние обходы новых античитов</li>
+                        <li>Прямая связь с кодером</li>
+                    </ul>
+                </div>
+                <!-- ВСТАВЬ ССЫЛКУ НА ОПЛАТУ ТАРИФА БЕТА В href="" -->
+                <a href="#" target="_blank" class="btn-buy">Получить доступ</a>
+            </div>
         </div>
     </main>
+    
     <footer>© 2026 Meadow Client. Все права защищены.</footer>
 </body>
 </html>
