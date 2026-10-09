@@ -6,19 +6,24 @@
     <title>Buy Premium | Meadow Client</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #05050a; color: #f3f4f6; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        body { background: #05050a; color: #f3f4f6; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; position: relative; }
         
-        /* Фиолетовая неоновая подсветка */
+        /* Фиолетовая неоновая туманность */
         .bg-glow {
             position: fixed; top: -10%; left: -10%; width: 60vw; height: 60vw;
-            background: radial-gradient(circle, rgba(138, 43, 226, 0.12) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
             filter: blur(80px); z-index: -1;
+        }
+
+        /* Холст для летающих частиц */
+        #particles-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
         }
 
         header {
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 8%; background: rgba(5, 5, 10, 0.8);
-            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); position: relative; z-index: 10;
         }
         .logo { font-size: 24px; font-weight: 900; letter-spacing: 2px; color: #a855f7; text-transform: uppercase; text-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
         
@@ -26,45 +31,52 @@
         .nav-links a { text-decoration: none; color: #9ca3af; font-weight: 600; padding: 8px 16px; border-radius: 20px; transition: 0.25s; }
         .nav-links a:hover, .nav-links a.active { color: #ffffff; background: rgba(168, 85, 247, 0.2); }
 
-        .title-section { text-align: center; margin-top: 50px; padding: 0 20px; }
-        .title-section h1 { font-size: 38px; font-weight: 900; margin-bottom: 10px; }
+        .title-section { text-align: center; margin-top: 50px; padding: 0 20px; position: relative; z-index: 2; }
+        .title-section h1 { font-size: 38px; font-weight: 900; margin-bottom: 10px; text-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
         .title-section p { color: #9ca3af; font-size: 16px; }
+
+        /* БЛОК ПРОМОКОДОВ */
+        .promo-container {
+            max-width: 400px; margin: 30px auto 10px auto; padding: 0 20px; text-align: center; position: relative; z-index: 5;
+        }
+        .promo-wrapper {
+            display: flex; gap: 10px; background: rgba(15, 15, 25, 0.6); padding: 6px; border-radius: 12px; border: 1px solid rgba(168, 85, 247, 0.2); backdrop-filter: blur(5px);
+        }
+        .promo-input {
+            flex: 1; background: transparent; border: none; padding: 10px; color: white; font-size: 14px; font-weight: 600; outline: none;
+        }
+        .promo-input::placeholder { color: #6b7280; }
+        .promo-btn {
+            background: linear-gradient(135deg, #a855f7, #7c3aed); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 13px; text-transform: uppercase;
+        }
+        .promo-btn:hover { filter: brightness(1.1); box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
+        .promo-message { margin-top: 10px; font-size: 13px; font-weight: 600; display: none; }
+        .promo-success { color: #34d399; }
+        .promo-error { color: #f87171; }
 
         /* Сетка тарифов */
         .price-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            width: 100%;
-            margin: 40px auto;
-            padding: 0 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px;
+            max-width: 1200px; width: 100%; margin: 30px auto 40px auto; padding: 0 20px; position: relative; z-index: 2;
         }
         
         /* Карточка тарифа */
         .price-card {
-            background: rgba(15, 15, 25, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 35px 25px;
-            border-radius: 20px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s, border-color 0.3s;
-            position: relative;
+            background: rgba(15, 15, 25, 0.7); border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 35px 25px; border-radius: 20px; text-align: center;
+            display: flex; flex-direction: column; justify-content: space-between;
+            backdrop-filter: blur(10px); transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; position: relative;
         }
         .price-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateY(-5px); border-color: rgba(168, 85, 247, 0.4); box-shadow: 0 10px 25px rgba(138, 43, 226, 0.05);
         }
 
         /* Выделенная карточка НАВСЕГДА */
         .price-card.featured {
-            border: 1px solid rgba(168, 85, 247, 0.6);
-            box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
-            background: rgba(20, 15, 35, 0.8);
+            border: 1px solid rgba(168, 85, 247, 0.6); box-shadow: 0 0 30px rgba(138, 43, 226, 0.15); background: rgba(20, 15, 35, 0.8);
+        }
+        .price-card.featured:hover {
+            box-shadow: 0 0 35px rgba(138, 43, 226, 0.3);
         }
         .hot-badge {
             position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
@@ -74,10 +86,11 @@
 
         .tier-title { font-size: 18px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; }
         .featured .tier-title { color: #c084fc; }
-        .beta-title { color: #34d399 !important; } /* Особый цвет для беты */
+        .beta-title { color: #34d399 !important; }
 
-        .cost { font-size: 40px; font-weight: 900; color: #ffffff; margin: 20px 0; }
+        .cost { font-size: 40px; font-weight: 900; color: #ffffff; margin: 20px 0; transition: color 0.3s; }
         .cost span { font-size: 18px; color: #a855f7; font-weight: 700; }
+        .old-price { font-size: 16px; color: #6b7280; text-decoration: line-through; display: none; margin-bottom: -5px; }
 
         .features-list { text-align: left; list-style: none; margin-bottom: 30px; color: #d1d5db; font-size: 14px; }
         .features-list li { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
@@ -91,21 +104,23 @@
             text-decoration: none; transition: 0.25s; font-size: 14px;
         }
         .btn-buy:hover {
-            border-color: #a855f7; color: #c084fc; background: rgba(168, 85, 247, 0.05); box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
+            border-color: #a855f7; color: #c084fc; background: rgba(168, 85, 247, 0.05); box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
         }
         .featured .btn-buy {
-            background: linear-gradient(135deg, #a855f7, #7c3aed); border: none;
-            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
+            background: linear-gradient(135deg, #a855f7, #7c3aed); border: none; box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
         }
         .featured .btn-buy:hover {
             filter: brightness(1.1); color: white; box-shadow: 0 8px 20px rgba(124, 58, 237, 0.5);
         }
 
-        footer { margin-top: auto; text-align: center; padding: 30px; color: #4b5563; font-size: 13px; border-top: 1px solid rgba(255, 255, 255, 0.02); }
+        footer { margin-top: auto; text-align: center; padding: 30px; color: #4b5563; font-size: 13px; border-top: 1px solid rgba(255, 255, 255, 0.02); position: relative; z-index: 2; }
     </style>
 </head>
 <body>
     <div class="bg-glow"></div>
+    <!-- Холст эффекта частиц -->
+    <canvas id="particles-canvas"></canvas>
+
     <header>
         <div class="logo">Meadow</div>
         <nav class="nav-links">
@@ -121,19 +136,28 @@
             <p>Автоматическая выдача лицензионного ключа сразу после успешной оплаты заказа</p>
         </div>
 
+        <!-- ИНТЕРАКТИВНЫЕ ПРОМОКОДЫ -->
+        <div class="promo-container">
+            <div class="promo-wrapper">
+                <input type="text" id="promo-field" class="promo-input" placeholder="Введите промокод (MEADOW2026)...">
+                <button class="promo-btn" onclick="applyPromo()">Применить</button>
+            </div>
+            <div id="promo-msg" class="promo-message"></div>
+        </div>
+
         <div class="price-grid">
             <!-- 1 МЕСЯЦ -->
             <div class="price-card">
                 <div>
                     <div class="tier-title">1 Месяц</div>
-                    <div class="cost">120 <span>₽</span></div>
+                    <div class="old-price" id="old-p1">120 ₽</div>
+                    <div class="cost" id="price-1">120 <span>₽</span></div>
                     <ul class="features-list">
                         <li>Полный Legit-функционал</li>
                         <li>Bypass проверок (Self-Destruct)</li>
                         <li>Все готовые обходы и CFG</li>
                     </ul>
                 </div>
-                <!-- ВСТАВЬ ССЫЛКУ НА ОПЛАТУ ТАРИФА 1 МЕСЯЦ В href="" -->
                 <a href="#" target="_blank" class="btn-buy">Купить ключ</a>
             </div>
 
@@ -141,14 +165,14 @@
             <div class="price-card">
                 <div>
                     <div class="tier-title">1 Год</div>
-                    <div class="cost">199 <span>₽</span></div>
+                    <div class="old-price" id="old-p2">199 ₽</div>
+                    <div class="cost" id="price-2">199 <span>₽</span></div>
                     <ul class="features-list">
                         <li>Доступ на 365 дней софта</li>
                         <li>Все функции Legit & Visuals</li>
                         <li>Выгоднее, чем брать помесячно</li>
                     </ul>
                 </div>
-                <!-- ВСТАВЬ ССЫЛКУ НА ОПЛАТУ ТАРИФА 1 ГОД В href="" -->
                 <a href="#" target="_blank" class="btn-buy">Купить ключ</a>
             </div>
 
@@ -157,14 +181,14 @@
                 <div class="hot-badge">ТОП ВЫБОР</div>
                 <div>
                     <div class="tier-title">Навсегда</div>
-                    <div class="cost">259 <span>₽</span></div>
+                    <div class="old-price" id="old-p3">259 ₽</div>
+                    <div class="cost" id="price-3">259 <span>₽</span></div>
                     <ul class="features-list">
                         <li>Пожизненный доступ к читу</li>
                         <li>Приоритетные обновления</li>
                         <li>Закрытый Discord чат покупателей</li>
                     </ul>
                 </div>
-                <!-- ВСТАВЬ ССЫЛКУ НА ОПЛАТУ ТАРИФА НАВСЕГДА В href="" -->
                 <a href="#" target="_blank" class="btn-buy">Купить навсегда</a>
             </div>
 
@@ -172,19 +196,87 @@
             <div class="price-card">
                 <div>
                     <div class="tier-title beta-title">Beta Access</div>
-                    <div class="cost">489 <span>₽</span></div>
-                    <ul class="features-list">
-                        <li>Доступ к самым новым тестам</li>
-                        <li>Ранние обходы новых античитов</li>
-                        <li>Прямая связь с кодером</li>
-                    </ul>
-                </div>
-                <!-- ВСТАВЬ ССЫЛКУ НА ОПЛАТУ ТАРИФА БЕТА В href="" -->
-                <a href="#" target="_blank" class="btn-buy">Получить доступ</a>
-            </div>
-        </div>
-    </main>
-    
-    <footer>© 2026 Meadow Client. Все права защищены.</footer>
-</body>
-</html>
+                    <div class="old-price" id="old-p4">489 ₽</div>
+489 ₽
+
+Доступ к самым новым тестам
+Ранние обходы новых античитов
+Прямая связь с кодером
+
+
+Получить доступ
+
+
+© 2026 Meadow Client. Все права защищены.
+// ЛОГИКА ПРОМОКОДОВ
+function applyPromo() {
+const input = document.getElementById('promo-field').value.trim();
+const msg = document.getElementById('promo-msg');
+// Секретное слово (можете поменять на любое другое)
+if (input === 'MEADOW2026' || input.toUpperCase() === 'MEADOW') {
+msg.innerHTML = "Промокод успешно применен! Скидка 20% активирована. ✨";
+msg.className = "promo-message promo-success";
+msg.style.display = "block";
+// Анимация изменения цен (скидка 20% примерная)
+document.getElementById('old-p1').style.display = "block";
+document.getElementById('price-1').innerHTML = "96 ₽";
+document.getElementById('old-p2').style.display = "block";
+document.getElementById('price-2').innerHTML = "159 ₽";
+document.getElementById('old-p3').style.display = "block";
+document.getElementById('price-3').innerHTML = "207 ₽";
+document.getElementById('old-p4').style.display = "block";
+document.getElementById('price-4').innerHTML = "390 ₽";
+} else {
+msg.innerHTML = "Такого промокода не существует! ❌";
+msg.className = "promo-message promo-error";
+msg.style.display = "block";
+}
+}
+// КИБЕРПАНК ЭФФЕКТ ЛЕТАЮЩИХ ЧАСТИЦ
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resizeCanvas() {
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+class Particle {
+constructor() {
+this.x = Math.random() * canvas.width;
+this.y = Math.random() * canvas.height;
+this.size = Math.random() * 2 + 1;
+this.speedY = Math.random() * -0.5 - 0.2; // Летят плавно вверх
+this.opacity = Math.random() * 0.5 + 0.2;
+}
+update() {
+this.y += this.speedY;
+if (this.y < 0) {
+this.y = canvas.height;
+this.x = Math.random() * canvas.width;
+}
+}
+draw() {
+ctx.fillStyle = rgba(168, 85, 247, ${this.opacity});
+ctx.beginPath();
+ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+ctx.fill();
+}
+}
+function initParticles() {
+particles = [];
+for (let i = 0; i < 60; i++) {
+particles.push(new Particle());
+}
+}
+function animateParticles() {
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+particles.forEach(p => {
+p.update();
+p.draw();
+});
+requestAnimationFrame(animateParticles);
+}
+initParticles();
+animateParticles();
