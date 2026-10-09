@@ -8,14 +8,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: #05050a; color: #f3f4f6; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; position: relative; }
         
-        /* Фиолетовая неоновая туманность */
         .bg-glow {
             position: fixed; top: -10%; left: -10%; width: 60vw; height: 60vw;
-            background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.12) 0%, transparent 70%);
             filter: blur(80px); z-index: -1;
         }
 
-        /* Холст для летающих частиц */
         #particles-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
         }
@@ -35,7 +33,6 @@
         .title-section h1 { font-size: 38px; font-weight: 900; margin-bottom: 10px; text-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
         .title-section p { color: #9ca3af; font-size: 16px; }
 
-        /* БЛОК ПРОМОКОДОВ */
         .promo-container {
             max-width: 400px; margin: 30px auto 10px auto; padding: 0 20px; text-align: center; position: relative; z-index: 5;
         }
@@ -54,13 +51,11 @@
         .promo-success { color: #34d399; }
         .promo-error { color: #f87171; }
 
-        /* Сетка тарифов */
         .price-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px;
             max-width: 1200px; width: 100%; margin: 30px auto 40px auto; padding: 0 20px; position: relative; z-index: 2;
         }
         
-        /* Карточка тарифа */
         .price-card {
             background: rgba(15, 15, 25, 0.7); border: 1px solid rgba(255, 255, 255, 0.04);
             padding: 35px 25px; border-radius: 20px; text-align: center;
@@ -71,7 +66,6 @@
             transform: translateY(-5px); border-color: rgba(168, 85, 247, 0.4); box-shadow: 0 10px 25px rgba(138, 43, 226, 0.05);
         }
 
-        /* Выделенная карточка НАВСЕГДА */
         .price-card.featured {
             border: 1px solid rgba(168, 85, 247, 0.6); box-shadow: 0 0 30px rgba(138, 43, 226, 0.15); background: rgba(20, 15, 35, 0.8);
         }
@@ -118,7 +112,6 @@
 </head>
 <body>
     <div class="bg-glow"></div>
-    <!-- Холст эффекта частиц -->
     <canvas id="particles-canvas"></canvas>
 
     <header>
@@ -136,7 +129,6 @@
             <p>Автоматическая выдача лицензионного ключа сразу после успешной оплаты заказа</p>
         </div>
 
-        <!-- ИНТЕРАКТИВНЫЕ ПРОМОКОДЫ -->
         <div class="promo-container">
             <div class="promo-wrapper">
                 <input type="text" id="promo-field" class="promo-input" placeholder="Введите промокод (MEADOW2026)...">
@@ -176,7 +168,7 @@
                 <a href="#" target="_blank" class="btn-buy">Купить ключ</a>
             </div>
 
-            <!-- НАВСЕГДА (ВЫДЕЛЕННЫЙ ТАРИФ) -->
+            <!-- НАВСЕГДА -->
             <div class="price-card featured">
                 <div class="hot-badge">ТОП ВЫБОР</div>
                 <div>
@@ -197,27 +189,22 @@
                 <div>
                     <div class="tier-title beta-title">Beta Access</div>
                     <div class="old-price" id="old-p4">489 ₽</div>
-489 ₽
-
-Доступ к самым новым тестам
-Ранние обходы новых античитов
-Прямая связь с кодером
-
-
+                    <div class="cost" id="price-4">489 <span>₽</span></div>
+                    <ul class="features-list">
+                        <li>Доступ к самым новым тестам</li>
+                        <li>Ранние обходы новых античитов</li>
+                        <li>Прямая связь с главным кодером</li>
 Получить доступ
 
 
 © 2026 Meadow Client. Все права защищены.
-// ЛОГИКА ПРОМОКОДОВ
 function applyPromo() {
 const input = document.getElementById('promo-field').value.trim();
 const msg = document.getElementById('promo-msg');
-// Секретное слово (можете поменять на любое другое)
 if (input === 'MEADOW2026' || input.toUpperCase() === 'MEADOW') {
-msg.innerHTML = "Промокод успешно применен! Скидка 20% активирована. ✨";
+msg.innerHTML = "Промокод успешно применен! Скидка активирована. ✨";
 msg.className = "promo-message promo-success";
 msg.style.display = "block";
-// Анимация изменения цен (скидка 20% примерная)
 document.getElementById('old-p1').style.display = "block";
 document.getElementById('price-1').innerHTML = "96 ₽";
 document.getElementById('old-p2').style.display = "block";
@@ -232,7 +219,6 @@ msg.className = "promo-message promo-error";
 msg.style.display = "block";
 }
 }
-// КИБЕРПАНК ЭФФЕКТ ЛЕТАЮЩИХ ЧАСТИЦ
 const canvas = document.getElementById('particles-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -247,7 +233,7 @@ constructor() {
 this.x = Math.random() * canvas.width;
 this.y = Math.random() * canvas.height;
 this.size = Math.random() * 2 + 1;
-this.speedY = Math.random() * -0.5 - 0.2; // Летят плавно вверх
+this.speedY = Math.random() * -0.5 - 0.2;
 this.opacity = Math.random() * 0.5 + 0.2;
 }
 update() {
