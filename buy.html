@@ -7,70 +7,40 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: #030307; color: #f3f4f6; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; position: relative; }
-        
-        .space-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            background: radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(76, 29, 149, 0.12) 0%, transparent 50%), #030307;
-        }
-
-        .stars {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
-            background-image: 
-                radial-gradient(1px 1px at 10% 20%, #fff, transparent),
-                radial-gradient(1.5px 1.5px at 30% 40%, rgba(168, 85, 247, 0.8), transparent),
-                radial-gradient(1.5px 1.5px at 25% 75%, #fff, transparent),
-                radial-gradient(2px 2px at 90% 70%, #fff, transparent);
-            background-size: 300px 300px; animation: spaceGlow 8s infinite alternate ease-in-out;
-        }
-
+        .space-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(76, 29, 149, 0.12) 0%, transparent 50%), #030307; }
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; background-image: radial-gradient(1px 1px at 10% 20%, #fff, transparent), radial-gradient(1.5px 1.5px at 30% 40%, rgba(168, 85, 247, 0.8), transparent), radial-gradient(1.5px 1.5px at 25% 75%, #fff, transparent), radial-gradient(2px 2px at 90% 70%, #fff, transparent); background-size: 300px 300px; animation: spaceGlow 8s infinite alternate ease-in-out; }
         @keyframes spaceGlow { 0% { opacity: 0.5; transform: scale(1); } 100% { opacity: 1; transform: scale(1.02); } }
-
-        header {
-            display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; 
-            background: rgba(3, 3, 7, 0.7); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.04); position: relative; z-index: 10;
-        }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(3, 3, 7, 0.7); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.04); position: relative; z-index: 10; }
         .logo { font-size: 24px; font-weight: 900; letter-spacing: 2px; color: #a855f7; text-transform: uppercase; text-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
         .nav-links { display: flex; gap: 20px; }
         .nav-links a { text-decoration: none; color: #9ca3af; font-weight: 600; padding: 8px 16px; border-radius: 20px; transition: 0.25s; }
         .nav-links a:hover, .nav-links a.active { color: #ffffff; background: rgba(168, 85, 247, 0.15); }
-
         .title-section { text-align: center; margin-top: 60px; padding: 0 20px; position: relative; z-index: 2; }
         .title-section h1 { font-size: 38px; font-weight: 900; margin-bottom: 10px; text-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
         .title-section p { color: #9ca3af; font-size: 16px; }
-
         .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; max-width: 1200px; width: 100%; margin: 50px auto 40px auto; padding: 0 20px; position: relative; z-index: 2; }
-        
         .price-card { background: rgba(10, 10, 18, 0.6); border: 1px solid rgba(255, 255, 255, 0.03); padding: 35px 25px; border-radius: 20px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; backdrop-filter: blur(8px); transition: transform 0.3s, border-color 0.3s; position: relative; }
         .price-card:hover { transform: translateY(-5px); border-color: rgba(168, 85, 247, 0.5); box-shadow: 0 12px 30px rgba(138, 43, 226, 0.15); }
-
         .price-card.featured { border: 1px solid rgba(168, 85, 247, 0.6); box-shadow: 0 0 30px rgba(138, 43, 226, 0.2); background: rgba(18, 12, 30, 0.7); }
         .hot-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, #a855f7, #7c3aed); color: white; padding: 4px 14px; border-radius: 20px; font-size: 11px; font-weight: 800; letter-spacing: 0.5px; }
-
         .tier-title { font-size: 18px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; }
         .featured .tier-title { color: #c084fc; }
         .beta-title { color: #34d399 !important; }
-
         .cost { font-size: 40px; font-weight: 900; color: #ffffff; margin: 20px 0; }
         .cost span { font-size: 18px; color: #a855f7; font-weight: 700; }
-
         .features-list { text-align: left; list-style: none; margin-bottom: 30px; color: #d1d5db; font-size: 14px; }
         .features-list li { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
         .features-list li::before { content: "✦"; color: #a855f7; font-weight: bold; }
-
         .btn-buy { display: block; width: 100%; text-align: center; background: rgba(255, 255, 255, 0.02); color: white; border: 1px solid rgba(255, 255, 255, 0.07); padding: 14px; border-radius: 12px; font-weight: 700; text-transform: uppercase; text-decoration: none; transition: 0.25s; font-size: 14px; cursor: pointer; }
         .btn-buy:hover { border-color: #a855f7; color: #c084fc; background: rgba(168, 85, 247, 0.06); box-shadow: 0 0 15px rgba(168, 85, 247, 0.25); }
         .featured .btn-buy { background: linear-gradient(135deg, #a855f7, #7c3aed); border: none; box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4); }
         .featured .btn-buy:hover { filter: brightness(1.1); color: white; }
-
         footer { margin-top: auto; text-align: center; padding: 30px; color: #4b5563; font-size: 13px; border-top: 1px solid rgba(255, 255, 255, 0.02); position: relative; z-index: 2; }
-        form { width: 100%; height: auto; }
     </style>
 </head>
 <body>
     <div class="space-bg"></div>
     <div class="stars"></div>
-
     <header>
         <div class="logo">Meadow</div>
         <nav class="nav-links">
@@ -79,97 +49,63 @@
             <a href="buy.html" class="active">Buy Premium</a>
         </nav>
     </header>
-    
     <main>
         <div class="title-section">
             <h1>Выбор подписки Meadow Premium</h1>
-            <p>Безопасная оплата через шлюз ЮMoney с мгновенной активацией доступа</p>
+            <p>Безопасный и прямой перевод на кошелек разработчика софта</p>
         </div>
-
         <div class="price-grid">
-            <!-- 1 МЕСЯЦ -->
             <div class="price-card">
-                <form action="https://yoomoney.ru" method="POST" target="_blank">
-                    <input type="hidden" name="receiver" value="4100119541070621">
-                    <input type="hidden" name="quickpay-form" value="button">
-                    <input type="hidden" name="targets" value="Meadow Client: 1 Месяц">
-                    <input type="hidden" name="sum" value="120">
-                    <input type="hidden" name="successURL" value="https://github.io">
-                    
-                    <div>
-                        <div class="tier-title">1 Месяц</div>
-                        <div class="cost">120 <span>₽</span></div>
-                        <ul class="features-list">
-                            <li>Полный Legit-функционал</li>
-                            <li>Bypass проверок (Self-Destruct)</li>
-                            <li>Все готовые обходы и CFG</li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="btn-buy">Купить за 120₽</button>
-                </form>
+                <div>
+                    <div class="tier-title">1 Месяц</div>
+                    <div class="cost">120 <span>₽</span></div>
+                    <ul class="features-list">
+                        <li>Полный Legit-функционал</li>
+                        <li>Bypass проверок (Self-Destruct)</li>
+                        <li>Все готовые обходы и CFG</li>
+                    </ul>
+                </div>
+                <a href="https://yoomoney.ru" target="_blank" class="btn-buy">Купить за 120₽</a>
             </div>
-
-            <!-- 1 ГОД -->
             <div class="price-card">
-                <form action="https://yoomoney.ru" method="POST" target="_blank">
-                    <input type="hidden" name="receiver" value="4100119541070621">
-                    <input type="hidden" name="quickpay-form" value="button">
-                    <input type="hidden" name="targets" value="Meadow Client: 1 Год">
-                    <input type="hidden" name="sum" value="199">
-                    <input type="hidden" name="successURL" value="https://github.io">
-
-                    <div>
-                        <div class="tier-title">1 Год</div>
-                        <div class="cost">199 <span>₽</span></div>
-                        <ul class="features-list">
-                            <li>Доступ на 365 дней софта</li>
-                            <li>Все функции Legit & Visuals</li>
-                            <li>Выгоднее, чем помесячно</li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="btn-buy">Купить за 199₽</button>
-                </form>
+                <div>
+                    <div class="tier-title">1 Год</div>
+                    <div class="cost">199 <span>₽</span></div>
+                    <ul class="features-list">
+                        <li>Доступ на 365 дней софта</li>
+                        <li>Все функции Legit & Visuals</li>
+                        <li>Выгоднее, чем помесячно</li>
+                    </ul>
+                </div>
+                <a href="https://yoomoney.ru" target="_blank" class="btn-buy">Купить за 199₽</a>
             </div>
-
-            <!-- НАВСЕГДА -->
             <div class="price-card featured">
                 <div class="hot-badge">ТОП ВЫБОР</div>
-                <form action="https://yoomoney.ru" method="POST" target="_blank">
-                    <input type="hidden" name="receiver" value="4100119541070621">
-                    <input type="hidden" name="quickpay-form" value="button">
-                    <input type="hidden" name="targets" value="Meadow Client: Навсегда">
-                    <input type="hidden" name="sum" value="259">
-                    <input type="hidden" name="successURL" value="https://github.io">
-
-                    <div>
-                        <div class="tier-title">Навсегда</div>
-                        <div class="cost">259 <span>₽</span></div>
-                        <ul class="features-list">
-                            <li>Пожизненный доступ к читу</li>
-                            <li>Приоритетные обновления</li>
-                            <li>Закрытый Discord покупателей</li>
-                        </ul>
-                    </div>
-                    <button type="submit" class="btn-buy">Купить за 259₽</button>
-                </form>
+                <div>
+                    <div class="tier-title">Навсегда</div>
+                    <div class="cost">259 <span>₽</span></div>
+                    <ul class="features-list">
+                        <li>Пожизненный доступ к читу</li>
+                        <li>Приоритетные обновления</li>
+                        <li>Закрытый Discord покупателей</li>
+                    </ul>
+                </div>
+                <a href="https://yoomoney.ru" target="_blank" class="btn-buy">Купить за 259₽</a>
             </div>
-
-            <!-- БЕТА -->
             <div class="price-card">
-                <form action="https://yoomoney.ru" method="POST" target="_blank">
-                    <input type="hidden" name="receiver" value="4100119541070621">
-                    <input type="hidden" name="quickpay-form" value="button">
-                    <input type="hidden" name="targets" value="Meadow Client: Beta Access">
-Beta Access
-489 ₽
-
-Доступ к самым новым тестам
-Ранние обходы античитов
-Прямая связь с главным кодером
-
-
-Купить за 489₽
-
-
-
-© 2026 Meadow Client. Все права защищены.
+                <div>
+                    <div class="tier-title beta-title">Beta Access</div>
+                    <div class="cost">489 <span>₽</span></div>
+                    <ul class="features-list">
+                        <li>Доступ к самым новым тестам</li>
+                        <li>Ранние обходы античитов</li>
+                        <li>Прямая связь с главным кодером</li>
+                    </ul>
+                </div>
+                <a href="https://yoomoney.ru" target="_blank" class="btn-buy">Купить за 489₽</a>
+            </div>
+        </div>
+    </main>
+    <footer>© 2026 Meadow Client. Все права защищены.</footer>
+</body>
+</html>
