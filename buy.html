@@ -64,6 +64,7 @@
         .featured .btn-buy:hover { filter: brightness(1.1); color: white; }
 
         footer { margin-top: auto; text-align: center; padding: 30px; color: #4b5563; font-size: 13px; border-top: 1px solid rgba(255, 255, 255, 0.02); position: relative; z-index: 2; }
+        form { width: 100%; height: auto; }
     </style>
 </head>
 <body>
@@ -82,69 +83,93 @@
     <main>
         <div class="title-section">
             <h1>Выбор подписки Meadow Premium</h1>
-            <p>Прямой перевод на кошелек разработчика с автоматическим переходом на страницу оплаты</p>
+            <p>Безопасная оплата через шлюз ЮMoney с мгновенной активацией доступа</p>
         </div>
 
         <div class="price-grid">
             <!-- 1 МЕСЯЦ -->
             <div class="price-card">
-                <div>
-                    <div class="tier-title">1 Месяц</div>
-                    <div class="cost">120 <span>₽</span></div>
-                    <ul class="features-list">
-                        <li>Полный Legit-функционал</li>
-                        <li>Bypass проверок (Self-Destruct)</li>
-                        <li>Все готовые обходы и CFG</li>
-                    </ul>
-                </div>
-                <a href="https://yoomoney.ru" target="_blank" class="btn-buy">Купить за 120₽</a>
+                <form action="https://yoomoney.ru" method="POST" target="_blank">
+                    <input type="hidden" name="receiver" value="4100119541070621">
+                    <input type="hidden" name="quickpay-form" value="button">
+                    <input type="hidden" name="targets" value="Meadow Client: 1 Месяц">
+                    <input type="hidden" name="sum" value="120">
+                    <input type="hidden" name="successURL" value="https://github.io">
+                    
+                    <div>
+                        <div class="tier-title">1 Месяц</div>
+                        <div class="cost">120 <span>₽</span></div>
+                        <ul class="features-list">
+                            <li>Полный Legit-функционал</li>
+                            <li>Bypass проверок (Self-Destruct)</li>
+                            <li>Все готовые обходы и CFG</li>
+                        </ul>
+                    </div>
+                    <button type="submit" class="btn-buy">Купить за 120₽</button>
+                </form>
             </div>
 
             <!-- 1 ГОД -->
             <div class="price-card">
-                <div>
-                    <div class="tier-title">1 Год</div>
-                    <div class="cost">199 <span>₽</span></div>
-                    <ul class="features-list">
-                        <li>Доступ на 365 дней софта</li>
-                        <li>Все функции Legit & Visuals</li>
-                        <li>Выгоднее, чем помесячно</li>
-                    </ul>
-                </div>
-                <a href="https://yoomoney.ru" target="_blank" class="btn-buy">Купить за 199₽</a>
+                <form action="https://yoomoney.ru" method="POST" target="_blank">
+                    <input type="hidden" name="receiver" value="4100119541070621">
+                    <input type="hidden" name="quickpay-form" value="button">
+                    <input type="hidden" name="targets" value="Meadow Client: 1 Год">
+                    <input type="hidden" name="sum" value="199">
+                    <input type="hidden" name="successURL" value="https://github.io">
+
+                    <div>
+                        <div class="tier-title">1 Год</div>
+                        <div class="cost">199 <span>₽</span></div>
+                        <ul class="features-list">
+                            <li>Доступ на 365 дней софта</li>
+                            <li>Все функции Legit & Visuals</li>
+                            <li>Выгоднее, чем помесячно</li>
+                        </ul>
+                    </div>
+                    <button type="submit" class="btn-buy">Купить за 199₽</button>
+                </form>
             </div>
 
             <!-- НАВСЕГДА -->
             <div class="price-card featured">
                 <div class="hot-badge">ТОП ВЫБОР</div>
-                <div>
-                    <div class="tier-title">Навсегда</div>
-                    <div class="cost">259 <span>₽</span></div>
-                    <ul class="features-list">
-                        <li>Пожизненный доступ к читу</li>
-                        <li>Приоритетные обновления</li>
-                        <li>Закрытый Discord покупателей</li>
-                    </ul>
-                </div>
-                <a href="https://yoomoney.ru/to/4100119541070621/259" target="_blank" class="btn-buy">Купить за 259₽</a>
+                <form action="https://yoomoney.ru" method="POST" target="_blank">
+                    <input type="hidden" name="receiver" value="4100119541070621">
+                    <input type="hidden" name="quickpay-form" value="button">
+                    <input type="hidden" name="targets" value="Meadow Client: Навсегда">
+                    <input type="hidden" name="sum" value="259">
+                    <input type="hidden" name="successURL" value="https://github.io">
+
+                    <div>
+                        <div class="tier-title">Навсегда</div>
+                        <div class="cost">259 <span>₽</span></div>
+                        <ul class="features-list">
+                            <li>Пожизненный доступ к читу</li>
+                            <li>Приоритетные обновления</li>
+                            <li>Закрытый Discord покупателей</li>
+                        </ul>
+                    </div>
+                    <button type="submit" class="btn-buy">Купить за 259₽</button>
+                </form>
             </div>
 
             <!-- БЕТА -->
             <div class="price-card">
-                <div>
-                    <div class="tier-title beta-title">Beta Access</div>
-                    <div class="cost">489 <span>₽</span></div>
-                    <ul class="features-list">
-                        <li>Доступ к самым новым тестам</li>
-                        <li>Ранние обходы античитов</li>
-                        <li>Прямая связь с главным кодером</li>
-                    </ul>
-                </div>
-                <a href="https://yoomoney.ru/to/4100119541070621/489" target="_blank" class="btn-buy">Купить за 489₽</a>
-            </div>
-        </div>
-    </main>
-    
-    <footer>© 2026 Meadow Client. Все права защищены.</footer>
-</body>
-</html>
+                <form action="https://yoomoney.ru" method="POST" target="_blank">
+                    <input type="hidden" name="receiver" value="4100119541070621">
+                    <input type="hidden" name="quickpay-form" value="button">
+                    <input type="hidden" name="targets" value="Meadow Client: Beta Access">
+Beta Access
+489 ₽
+
+Доступ к самым новым тестам
+Ранние обходы античитов
+Прямая связь с главным кодером
+
+
+Купить за 489₽
+
+
+
+© 2026 Meadow Client. Все права защищены.
