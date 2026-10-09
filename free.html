@@ -6,23 +6,24 @@
     <title>Download Free | Meadow Client</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #06090e; color: #f3f4f6; min-height: 100vh; display: flex; flex-direction: column; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(6, 9, 14, 0.8); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .logo { font-size: 24px; font-weight: 900; color: #10b981; text-transform: uppercase; letter-spacing: 2px; }
+        body { background: #05050a; color: #f3f4f6; min-height: 100vh; display: flex; flex-direction: column; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(5, 5, 10, 0.8); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .logo { font-size: 24px; font-weight: 900; color: #a855f7; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
         .nav-links { display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: #9ca3af; font-weight: 600; padding: 8px 16px; border-radius: 20px; }
-        .nav-links a:hover, .nav-links a.active { color: #ffffff; background: rgba(16, 185, 129, 0.15); }
+        .nav-links a { text-decoration: none; color: #9ca3af; font-weight: 600; padding: 8px 16px; border-radius: 20px; transition: 0.25s; }
+        .nav-links a:hover, .nav-links a.active { color: #ffffff; background: rgba(168, 85, 247, 0.2); }
         
-        .box { max-width: 550px; background: #0d1117; border: 1px solid rgba(255, 255, 255, 0.05); margin: 80px auto; padding: 40px; border-radius: 20px; text-align: center; }
-        h1 { font-size: 32px; margin-bottom: 15px; }
+        .box { max-width: 550px; background: rgba(15, 15, 25, 0.6); border: 1px solid rgba(255, 255, 255, 0.04); margin: 80px auto; padding: 40px; border-radius: 20px; text-align: center; backdrop-filter: blur(5px); transition: 0.3s; }
+        .box:hover { border-color: rgba(168, 85, 247, 0.2); box-shadow: 0 10px 30px rgba(124, 58, 237, 0.05); }
+        h1 { font-size: 32px; margin-bottom: 15px; letter-spacing: -0.5px; }
         p { color: #9ca3af; margin-bottom: 30px; line-height: 1.6; }
         ul { text-align: left; max-width: 350px; margin: 0 auto 30px auto; color: #d1d5db; list-style: none; }
-        ul li { margin-bottom: 12px; }
-        ul li::before { content: "• "; color: #10b981; font-weight: bold; }
+        ul li { margin-bottom: 12px; font-size: 15px; }
+        ul li::before { content: "• "; color: #c084fc; font-weight: bold; margin-right: 5px; }
         
-        .btn-download { display: block; background: #10b981; color: white; text-decoration: none; padding: 16px; border-radius: 12px; font-weight: 700; text-transform: uppercase; transition: 0.25s; }
-        .btn-download:hover { background: #059669; transform: translateY(-2px); }
-        footer { margin-top: auto; text-align: center; padding: 30px; color: #4b5563; font-size: 13px; }
+        .btn-download { display: block; background: linear-gradient(135deg, #a855f7, #7c3aed); color: white; text-decoration: none; padding: 16px; border-radius: 12px; font-weight: 700; text-transform: uppercase; transition: 0.25s; letter-spacing: 0.5px; box-shadow: 0 5px 20px rgba(124, 58, 237, 0.3); }
+        .btn-download:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 8px 25px rgba(124, 58, 237, 0.5); }
+        footer { margin-top: auto; text-align: center; padding: 30px; color: #4b5563; font-size: 13px; border-top: 1px solid rgba(255, 255, 255, 0.02); }
     </style>
 </head>
 <body>
@@ -45,7 +46,7 @@
                 <li>Безопасно для игры на простых серверах</li>
             </ul>
             <!-- СЮДА ВСТАВЬ ССЫЛКУ ДРУГА НА ГИТХАБ ВМЕСТО # -->
-            <a href="#" target="_blank" class="btn-download">Скачать бесплатно с GitHub</a>
+            <a href="https://github.com" target="_blank" class="btn-download">Скачать бесплатно с GitHub</a>
         </div>
     </main>
     <footer>© 2026 Meadow Client. Все права защищены.</footer>
