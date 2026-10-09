@@ -6,44 +6,45 @@
     <title>Meadow Client | Premium Minecraft Legit Client</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #06090e; color: #f3f4f6; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        body { background: #05050a; color: #f3f4f6; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        /* Зеленая легитная неоновая подсветка */
+        /* Фиолетовая неоновая подсветка */
         .bg-glow {
             position: fixed; top: -10%; left: -10%; width: 60vw; height: 60vw;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
             filter: blur(80px); z-index: -1;
         }
 
         header {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 8%; background: rgba(6, 9, 14, 0.8);
+            padding: 20px 8%; background: rgba(5, 5, 10, 0.8);
             backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .logo { font-size: 24px; font-weight: 900; letter-spacing: 2px; color: #10b981; text-transform: uppercase; }
+        .logo { font-size: 24px; font-weight: 900; letter-spacing: 2px; color: #a855f7; text-transform: uppercase; text-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
         
         .nav-links { display: flex; gap: 20px; }
         .nav-links a { text-decoration: none; color: #9ca3af; font-weight: 600; padding: 8px 16px; border-radius: 20px; transition: 0.25s; }
-        .nav-links a:hover, .nav-links a.active { color: #ffffff; background: rgba(16, 185, 129, 0.15); }
+        .nav-links a:hover, .nav-links a.active { color: #ffffff; background: rgba(168, 85, 247, 0.2); box-shadow: 0 0 15px rgba(168, 85, 247, 0.1); }
 
-        .hero { text-align: center; max-width: 800px; margin: 100px auto padding: 0 20px; }
-        .badge { background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; color: #34d399; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; display: inline-block; }
-        .hero h1 { font-size: 52px; font-weight: 900; margin-bottom: 20px; }
-        .hero h1 span { color: #10b981; }
+        .hero { text-align: center; max-width: 800px; margin: 100px auto; padding: 0 20px; }
+        .badge { background: rgba(168, 85, 247, 0.1); border: 1px solid #a855f7; color: #c084fc; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; display: inline-block; box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
+        .hero h1 { font-size: 52px; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; }
+        .hero h1 span { background: linear-gradient(135deg, #c084fc, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero p { color: #9ca3af; font-size: 18px; margin-bottom: 40px; line-height: 1.6; }
         
         .btn-group { display: flex; justify-content: center; gap: 20px; }
-        .btn { padding: 16px 36px; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-transform: uppercase; transition: 0.25s; }
-        .btn-green { background: #10b981; color: white; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3); }
-        .btn-green:hover { transform: translateY(-3px); background: #059669; }
-        .btn-outline { border: 1px solid rgba(255, 255, 255, 0.1); color: white; }
-        .btn-outline:hover { border-color: #10b981; color: #10b981; transform: translateY(-3px); }
+        .btn { padding: 16px 36px; font-size: 15px; font-weight: 700; border-radius: 12px; text-decoration: none; text-transform: uppercase; transition: 0.25s; letter-spacing: 0.5px; }
+        .btn-violet { background: linear-gradient(135deg, #a855f7, #7c3aed); color: white; box-shadow: 0 8px 25px rgba(124, 58, 237, 0.35); border: none; }
+        .btn-violet:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(124, 58, 237, 0.55); filter: brightness(1.1); }
+        .btn-outline { border: 1px solid rgba(255, 255, 255, 0.1); color: white; background: rgba(255, 255, 255, 0.02); }
+        .btn-outline:hover { border-color: #a855f7; color: #c084fc; transform: translateY(-3px); box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); }
 
         .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; max-width: 1100px; margin: 80px auto; padding: 0 20px; }
-        .card { background: rgba(20, 24, 33, 0.6); border: 1px solid rgba(255, 255, 255, 0.03); padding: 30px; border-radius: 16px; }
-        .card h3 { color: #34d399; margin-bottom: 10px; font-size: 20px; }
-        .card p { color: #9ca3af; font-size: 14px; line-height: 1.5; }
-        footer { margin-top: auto; text-align: center; padding: 30px; color: #4b5563; font-size: 13px; }
+        .card { background: rgba(15, 15, 25, 0.6); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px; border-radius: 16px; backdrop-filter: blur(5px); transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: rgba(168, 85, 247, 0.3); box-shadow: 0 10px 25px rgba(124, 58, 237, 0.1); }
+        .card h3 { color: #c084fc; margin-bottom: 12px; font-size: 20px; display: flex; align-items: center; gap: 8px; }
+        .card p { color: #9ca3af; font-size: 14px; line-height: 1.6; }
+        footer { margin-top: auto; text-align: center; padding: 30px; color: #4b5563; font-size: 13px; border-top: 1px solid rgba(255, 255, 255, 0.02); }
     </style>
 </head>
 <body>
@@ -63,7 +64,7 @@
             <h1>Играй беспалевно с <span>Meadow Client</span></h1>
             <p>Лучший легит-клиент для Майнкрафт. Идеальные плавные наводки, незаметный AimBot, умный Clicker и кастомные визуалы. Проходи любые проверки администрацией без единого подозрения.</p>
             <div class="btn-group">
-                <a href="buy.html" class="btn btn-green">Купить Premium</a>
+                <a href="buy.html" class="btn btn-violet">Купить Premium</a>
                 <a href="free.html" class="btn btn-outline">Скачать Free</a>
             </div>
         </div>
@@ -78,7 +79,7 @@
                 <p>Красивые ESP боксы и трейсеры, которые полностью скрываются при записи экрана или стриме.</p>
             </div>
             <div class="card">
-                <h3>🛡️ bypass Проверок</h3>
+                <h3>🛡️ Bypass Проверок</h3>
                 <p>Специальные алгоритмы самоочистки памяти (Self-Destruct). Моментальное удаление следов софта перед проверкой.</p>
             </div>
         </div>
